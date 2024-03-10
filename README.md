@@ -8,6 +8,7 @@
     <img src="https://img.shields.io/github/commit-activity/m/stefansphtr/Data-Analytics-Brazilian-Ecommerce" alt="Commit Activity Badge">
     <img src="https://img.shields.io/github/repo-size/stefansphtr/Data-Analytics-Brazilian-Ecommerce" alt="Repo Size Badge">
     <img src="https://img.shields.io/badge/contributions-welcome-orange.svg" alt="Contributions welcome">
+    <img src="https://www.codefactor.io/repository/github/stefansphtr/data-analytics-brazilian-ecommerce/badge" alt="CodeFactor" />
   </a>
 </p>
 
