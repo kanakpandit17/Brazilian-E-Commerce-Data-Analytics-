@@ -4,27 +4,21 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-# Set up the page
 st.set_page_config(page_title="Sales Performance Dashboard", page_icon=":bar_chart:", layout="wide")
 
-# Load the dataset
 all_df = pd.read_csv('data/all_data.csv')
 all_df["order_purchase_timestamp"] = pd.to_datetime(all_df["order_purchase_timestamp"])
 
-# Fill missing values
 all_df["customer_segment"].fillna("Mid Value Customers", inplace=True)
 
-# Get min and max date
 min_date = all_df["order_purchase_timestamp"].min()
 max_date = all_df["order_purchase_timestamp"].max()
 
-# Create constants to be used in the app
 LOGO_URL = "https://i.pinimg.com/originals/65/dd/2f/65dd2f283db26ce78dd6ab61a489b90e.jpg"
 BAR_COLOR = "#E36414"
 
 def filter_data(all_df):
     with st.sidebar:
-        # Add company's logo
         st.image(LOGO_URL, width=250)
         st.header("Filter here:")
 
@@ -62,7 +56,6 @@ def filter_data(all_df):
     return df_selection
 
 def display_kpis(all_df):
-    # TOP KPI's
     if all_df is not None:
         total_sales = int(all_df["total_price"].sum()) if "total_price" in all_df else 0
         average_rating = round(all_df["review_score"].mean(), 1) if "review_score" in all_df else 0
@@ -90,7 +83,6 @@ def display_kpis(all_df):
     st.markdown("""---""")
 
 def plot_charts(df):
-    # Sales by Product Line (Bar Chart)
     if df is not None:
         sales_by_product_line = df.groupby(by=["product_category_name_english"])[["total_price"]].sum().sort_values(by="total_price")
     else:
@@ -110,7 +102,6 @@ def plot_charts(df):
         fig_product_sales = go.Figure()
 
 
-    # Daily Sales [bar chart]
     if df is not None and "order_purchase_timestamp" in df:
         df["order_purchase_day"] = df["order_purchase_timestamp"].dt.day
     else:
@@ -136,13 +127,11 @@ def plot_charts(df):
         yaxis_title="Sales",
     )
 
-    # Sales by Day and Product Line Tab
     left_column, right_column = st.columns(2)
     left_column.plotly_chart(fig_daily_sales, use_container_width=True)
     right_column.plotly_chart(fig_product_sales, use_container_width=True)
 
 def main():
-    # Main Panel
     st.title("Sales Performance Dashboard")
     st.markdown("##")
 
@@ -150,10 +139,8 @@ def main():
     display_kpis(df_selection)
     plot_charts(df_selection)
 
-    # Hide Streamlit Style
     hide_st_style = """
                 <style>
-                #MainMenu {visibility: hidden;}
                 footer {visibility: hidden;}
                 header {visibility: hidden;}
                 </style>

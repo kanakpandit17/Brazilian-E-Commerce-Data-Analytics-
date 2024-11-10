@@ -12,7 +12,6 @@ def percentage(orders_df):
     percentage_missing = percentage_missing.reset_index()
     percentage_missing = percentage_missing.drop('index', axis=1)
 
-    # plot the missing value percentage
     plt.figure(figsize=(10,5))
     ax = sns.barplot(x='missing_percentage %', y='column', data=percentage_missing, color='#E1341E')
     for p in ax.patches:
